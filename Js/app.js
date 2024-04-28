@@ -49,7 +49,7 @@ function guardar() {
 
 //Leer Documentos
 var tabla = document.getElementById('tabla'); 
-db.collection("users").onSnapshot()((querySnapshot) => {
+db.collection("users").onSnapshot((querySnapshot) => {
     tabla.innerHTML = ''; // parte la tabla basia 
     querySnapshot.forEach((doc) => {
         console.log(`${doc.id} => ${doc.data().first}`);
