@@ -29,13 +29,14 @@ function guardar() {
     var apellido = document.getElementById("apellido").value;
     var fecha = document.getElementById("fecha").value;
 
+    //Agregar Documentos
     db.collection("users").add({
         first: nombre,
         last: apellido,
         born: fecha
     })
     .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
+    console.log("Document written with ID: ", docRef.id);
     document.getElementById("nombre").value = '';
     document.getElementById("apellido").value = '';
     document.getElementById("fecha").value = '';
@@ -43,6 +44,22 @@ function guardar() {
 
     .catch((error) => {
         console.error("Error adding document: ", error);
-    });
-    
+    });   
 }
+
+//Leer Documentos
+var tabla = document.getElementById('tabla'); 
+db.collection("users").onSnapshot()((querySnapshot) => {
+    tabla.innerHTML = ''; // parte la tabla basia 
+    querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data().first}`);
+        tabla.innerHTML += `
+        <tr>
+          <th scope="row">${doc.id}</th>
+          <td>${doc.data().first}</td>
+          <td>${doc.data().last}</td>
+          <td>${doc.data().born}</td>
+        </tr>
+        `
+    });
+});
