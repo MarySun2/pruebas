@@ -22,15 +22,27 @@ firebase.initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = firebase.firestore();
 
-//Agregamos Documentos
-db.collection("users").add({
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815
-})
-.then((docRef) => {
-    console.log("Document written with ID: ", docRef.id);
-})
-.catch((error) => {
-    console.error("Error adding document: ", error);
-});
+//Funciones
+function guardar() {
+    // Dom 
+    var nombre = document.getElementById("nombre").value;
+    var apellido = document.getElementById("apellido").value;
+    var fecha = document.getElementById("fecha").value;
+
+    db.collection("users").add({
+        first: nombre,
+        last: apellido,
+        born: fecha
+    })
+    .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+    document.getElementById("nombre").value = '';
+    document.getElementById("apellido").value = '';
+    document.getElementById("fecha").value = '';
+    })
+
+    .catch((error) => {
+        console.error("Error adding document: ", error);
+    });
+    
+}
