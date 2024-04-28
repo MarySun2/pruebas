@@ -60,7 +60,7 @@ db.collection("users").onSnapshot((querySnapshot) => {
           <td>${doc.data().last}</td>
           <td>${doc.data().born}</td>
           <td><button class="btn btn-danger" onclick="eliminar('${doc.id}')">Eliminar</button></td>
-          <td><button class="btn btn-warning" onclick="editar('${doc.id}')">Editar</button></td>
+          <td><button class="btn btn-warning" onclick="editar('${doc.id}', '${doc.data().first}', '${doc.data().last}', ${doc.data().born})">Editar</button></td>
         </tr>
         `
     });  
@@ -73,4 +73,38 @@ function eliminar(id) {
     }).catch(function(error){
         console.error("Error removing document: ", error);
     });
+}
+
+function editar(id, nombre, apellido, fecha) {
+    document.getElementById('nombre').value = nombre;
+    document.getElementById('apellido').value = apellido;
+    document.getElementById('fecha').value = fecha;
+    var boton = document.getElementById('boton');
+    boton.innerHTML = 'Editar';
+
+    // Función para editar los datos
+    boton.onclick = function() {
+        var washingtonRef = db.collection("users").doc(id);
+        var nuevoNombre = document.getElementById('nombre').value;
+        var nuevoApellido = document.getElementById('apellido').value;
+        var nuevaFecha = document.getElementById('fecha').value;
+
+        // Actualizar los datos en Firestore
+        return washingtonRef.update({
+                first: nuevoNombre,
+                last: nuevoApellido,
+                born: nuevaFecha
+            })
+            .then(function() {
+                console.log("¡Documento actualizado exitosamente!");
+                boton.innerHTML = 'Guardar';
+                // Limpiar los campos después de actualizar
+                document.getElementById("nombre").value = '';
+                document.getElementById("apellido").value = '';
+                document.getElementById("fecha").value = '';
+            })
+            .catch(function(error) {
+                console.error("Error al actualizar el documento: ", error);
+            });
+    }
 }
