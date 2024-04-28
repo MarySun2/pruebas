@@ -36,17 +36,37 @@ function guardar() {
         born: fecha
     })
     .then((docRef) => {
-    console.log("Document written with ID: ", docRef.id);
+    //console.log("Document written with ID: ", docRef.id);
+    MsnOK();
     document.getElementById("nombre").value = '';
     document.getElementById("apellido").value = '';
     document.getElementById("fecha").value = '';
     })
 
     .catch((error) => {
-        console.error("Error adding document: ", error);
+        //console.error("Error adding document: ", error);
+        MsnOK();
     });   
 }
 
+//Funcion botones 
+//Correcto
+const MsnOK =()=> {
+Swal.fire({
+    title: "Good job!",
+    text: "Se ha Guardado Correctamente!",
+    icon: "success"
+  });
+}
+//Error
+const MsnERROR =()=> {
+Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "Algo salio mal Intentelo mas tarde!",
+    footer: '<a href="#">Why do I have this issue?</a>'
+  });
+}
 //Leer Documentos
 var tabla = document.getElementById('tabla'); 
 db.collection("users").onSnapshot((querySnapshot) => {
