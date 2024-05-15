@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firma Digital</title>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-storage.js"></script> -->
+    <script src="html2pdf.bundle.min.js"></script>
+    <script>
+        // Configura tu proyecto de Firebase
+        const firebaseConfig = {
+    apiKey: "AIzaSyCyQ9MIcfKW4XONR6eLfqhLPXrIbkxHXf0",
+    authDomain: "engranajecien.firebaseapp.com",
+    projectId: "engranajecien",
+    storageBucket: "engranajecien.appspot.com",
+    messagingSenderId: "246647848226",
+    appId: "1:246647848226:web:996b6034cc04595b22b97b",
+    measurementId: "G-YENP1H7RL1"
+};
+
+        // Inicializa Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Referencia a Firebase Storage
+        const storage = firebase.storage();
+
+        // Función para guardar la firma como PDF
+function guardarPDF() {
+    // Obtener el canvas donde se encuentra la firma
+    const canvas = document.getElementById('canvas');
+
+    // Crear un elemento <img> con la imagen de la firma
+    const img = new Image();
+    img.src = canvas.toDataURL();
+
+    // Crear un contenedor div para la imagen de la firma
+    const container = document.createElement('div');
+    container.appendChild(img);
+
+    // Utilizar html2pdf para convertir el contenido a PDF
+    html2pdf(container, {
+        margin: 1,
+        filename: 'firma.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { dpi: 192, letterRendering: true },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    }).then(function(pdf) {
+        // Convertir el PDF a ArrayBuffer
+        return pdf.output('arraybuffer');
+    }).then(function(pdfData) {
+        // Guardar el PDF en Firebase Storage
+        const firmaPDFRef = storage.ref().child('firma.pdf');
+        return firmaPDFRef.put(pdfData);
+    }).then(function(snapshot) {
+        console.log('PDF guardado exitosamente.');
+    }).catch(function(error) {
+        console.error('Error al guardar el PDF:', error);
+    });
+}
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="200" style="border:1px solid black"></canvas><br>
+    <button onclick="guardarPDF()">Guardar como PDF</button>
+
+    <script>
+        // Código para capturar la firma del usuario utilizando Canvas
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        function draw(e) {
+            if (!isDrawing) return;
+            context.beginPath();
+            context.moveTo(lastX, lastY);
+            context.lineTo(e.offsetX, e.offsetY);
+            context.stroke();
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseout', () => isDrawing = false);
+    </script>
+</body>
+</html>
