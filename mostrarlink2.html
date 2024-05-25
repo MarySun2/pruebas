@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Links de PDF y Visualizar Contenido</title>
+    <style>
+        .pdf-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .pdf-item img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .pdf-viewer {
+            margin-top: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Archivos PDF</h1>
+    <ul id="fileList"></ul>
+    <div class="pdf-viewer" id="pdfViewerContainer">
+        <h2>Vista Previa del PDF</h2>
+        <iframe id="pdfViewer" src=""></iframe>
+    </div>
+
+    <!-- Incluye las bibliotecas de Firebase desde el CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-storage-compat.js"></script>
+    <script>
+        // Configura tu proyecto Firebase
+        const firebaseConfig = {
+    apiKey: "AIzaSyD785S6cHJjqRxHLtJ3zugA6cHutfy_9EM",
+    authDomain: "prueba2-ebd2e.firebaseapp.com",
+    projectId: "prueba2-ebd2e",
+    storageBucket: "prueba2-ebd2e.appspot.com",
+    messagingSenderId: "665315151798",
+    appId: "1:665315151798:web:f9015e5b4340965edf3b17",
+    measurementId: "G-DWN48GL4W9"
+};
+
+        // Inicializa Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Referencia a Firestore
+        const firestore = firebase.firestore();
+
+        // Función para obtener y mostrar los enlaces de Firestore
+        function mostrarLinks() {
+            const fileList = document.getElementById('fileList');
+            const pdfViewer = document.getElementById('pdfViewer');
+
+            firestore.collection('archivos').get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const li = document.createElement('li');
+                    li.className = 'pdf-item';
+
+                    const img = document.createElement('img');
+                    img.src = 'https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg'; // Ícono genérico de PDF
+                    img.alt = 'PDF';
+
+                    const a = document.createElement('a');
+                    a.href = data.enlace;
+                    a.textContent = data.nombre;
+                    a.target = '_blank';
+                    a.addEventListener('click', (event) => {
+                        event.preventDefault(); // Evitar que el enlace abra una nueva pestaña
+                        pdfViewer.src = data.enlace; // Actualizar el iframe con el enlace del PDF
+                    });
+
+                    li.appendChild(img);
+                    li.appendChild(a);
+                    fileList.appendChild(li);
+                });
+            }).catch((error) => {
+                console.error('Error al obtener los enlaces de Firestore:', error);
+            });
+        }
+
+        // Función para ejecutar cuando el contenido del iframe ha sido cargado
+        function onIframeLoaded() {
+            console.log('El contenido del iframe ha sido cargado.');
+            // Aquí puedes realizar cualquier acción adicional que desees después de cargar el contenido del iframe
+        }
+
+        // Llama a la función para mostrar los enlaces al cargar la página
+        window.onload = function() {
+            mostrarLinks();
+            // Añadir event listener para detectar cuando el contenido del iframe ha sido cargado
+            document.getElementById('pdfViewer').addEventListener('load', onIframeLoaded);
+        };
+    </script>
+</body>
+</html>
+
+
