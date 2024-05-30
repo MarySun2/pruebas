@@ -45,7 +45,7 @@ function guardar() {
 
     .catch((error) => {
         //console.error("Error adding document: ", error);
-        MsnOK();
+        MsnERROR();
     });   
 }
 
