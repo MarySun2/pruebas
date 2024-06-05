@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Desplegable para Cambiar Imagen</title>
+    <Style>
+    body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+    }
+
+    select {
+    font-size: 16px;
+    padding: 5px;
+    }
+
+    img {
+    margin-top: 20px;
+    border: 2px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    </Style>
+</head>
+<body>
+    <h1>Cambiar Imagen con Menú Desplegable</h1>
+    <select id="imageSelector">
+        <option value="./Img/image1.jpg">Imagen 1</option>
+        <option value="./Img/image2.jpg">Imagen 2</option>
+        <option value="image3.jpg">Imagen 3</option>
+    </select>
+    <br><br>
+    <img id="displayImage" src="./Img/image1.jpg" alt="Imagen" style="max-width: 100%; height: auto;">
+    
+
+
+    <script>
+    document.getElementById('imageSelector').addEventListener('change', function() {
+    var selectedValue = this.value;
+    document.getElementById('displayImage').src = selectedValue;
+    });
+    </script>
+</body>
+</html>

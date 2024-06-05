@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Formulario PDF</title>
+</head>
+
+<body>
+    <html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+  </head>
+  <body>
+    <div class="p-4">
+  <div class="flex items-center mb-4">
+    <div class="w-40 h-40 border border-zinc-300">
+        
+       <!-- Menú desplegable para cambiar la imagen -->
+       <select id="imageSelector">
+        <option value="./Img/image1.jpg">Imagen 1</option>
+        <option value="./Img/image2.jpg">Imagen 2</option>
+        <option value="./Img/image3.jpg">Imagen 3</option>
+    </select>
+    <br><br>
+    <img id="displayImage" src="./Img/image1.jpg" alt="Imagen" style="max-width: 100%; height: auto;">
+        
+    </div>
+    <div class="ml-4">
+      <h1 class="text-lg font-bold"></h1>
+      <p>Consejería de Educación, Cultura y Universidades</p>
+    </div>
+  </div>
+  <h2 class="text-center font-bold mb-4">MÓDULO DE FORMACIÓN EN CENTROS DE TRABAJO<br>HOJA SEMANAL DEL ALUMNO<br>ANEXO IV</h2>
+  <div class="border border-zinc-300 p-4 mb-4">
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div>
+        <p class="font-bold">CENTRO DOCENTE:</p>
+        <p class="font-bold">TUTOR/A DEL CENTRO DOCENTE:</p>
+        <p class="font-bold">ALUMNO/A:</p>
+      </div>
+      <div>
+        <p class="font-bold">CENTRO DE TRABAJO:</p>
+        <p class="font-bold">TUTOR/A DEL CENTRO DE TRABAJO:</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <p class="font-bold">FAMILIA PROFESIONAL:</p>
+        <p class="font-bold">CICLO FORMATIVO:</p>
+      </div>
+      <div>
+        <p class="font-bold">PERIODO: / / - / /</p>
+        <p class="font-bold">SEMANA DEL______ AL ____ DE _______ DE ______</p>
+        <p class="font-bold">HORAS:</p>
+      </div>
+    </div>
+  </div>
+  <table class="w-full border border-zinc-300 mb-4">
+    <thead>
+      <tr class="border-b border-zinc-300">
+        <th class="p-2 border-r border-zinc-300">FECHA</th>
+        <th class="p-2 border-r border-zinc-300">ACTIVIDADES REALIZADAS</th>
+        <th class="p-2 border-r border-zinc-300">TIEMPO</th>
+        <th class="p-2">OBSERVACIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="border-b border-zinc-300">
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2"></td>
+      </tr>
+      <tr class="border-b border-zinc-300">
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2"></td>
+      </tr>
+      <tr class="border-b border-zinc-300">
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2"></td>
+      </tr>
+      <tr class="border-b border-zinc-300">
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2"></td>
+      </tr>
+      <tr class="border-b border-zinc-300">
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2 border-r border-zinc-300"></td>
+        <td class="p-2"></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="flex justify-between mb-4">
+    <div class="text-center">
+      <p class="font-bold">ALUMNO/A</p>
+      <br><br>
+      <p>Fdo.: ................................................</p>
+    </div>
+    <div class="text-center">
+      <p class="font-bold">Vº Bº</p>
+      <p>EL TUTOR DEL CENTRO DE TRABAJO</p>
+      <br><br>
+      <p>Fdo.: ................................................</p>
+    </div>
+    <div class="text-center">
+      <p class="font-bold">Vº Bº</p>
+      <p>EL TUTOR DEL CENTRO DOCENTE</p>
+      <br><br>
+      <p>Fdo.: ................................................</p>
+    </div>
+  </div>
+</div>
+<script src="./js/app.js"></script>
+  </body>
+</html>
+</body>
+</html>
